@@ -91,7 +91,7 @@ class Array:
             raise TypeError(f'Cannot multiply array by type<{type(other)}>')
 
     def __neg__(self):
-        """Using inner func for reshape"""
+        """Using inner func for negation"""
 
         return self.__mul__(-1)
 
@@ -264,6 +264,7 @@ class Array:
 
         def collapse(arr):
             """Destroys the outermost dimension"""
+
             return functools.reduce(add, arr)
 
         flattened_shape = functools.reduce(mul, self.shape())
