@@ -56,7 +56,11 @@ class Array:
             if type(ls) == list:
                 if len(ls) > 0:
                     if any(map(lambda x: type(x) == int, ls)):
-                        ls[:] = [operator(v) for v in ls]
+                        temp = [operator(v) for v in ls]
+                        if not all(type(x) == int or float for x in ls):
+                            raise ValueError('Cannot input non-integers or non-floats into Array')
+                        else:
+                            ls[:] = temp
                     else:
                         go_factor(ls[0], operator)
                         go_factor(ls[1:], operator)
@@ -65,6 +69,9 @@ class Array:
 
         if isinstance(other, int):
             go_factor(self.mat, operator=lambda x: other * x)
+            return Array(init=self.mat)
+        elif isinstance(other, Callable) and type(other) != type(self):
+            go_factor(self.mat, operator=other)
             return Array(init=self.mat)
         elif isinstance(other, Array):
             self_shape = self.shape()
@@ -391,4 +398,6 @@ if __name__ == '__main__':
 
     newnew = Array.arange(end=10, shape=[2, 5])
     print(newnew)
+
+    print(newnew * (lambda x: x ** 2))
 
