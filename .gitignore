@@ -7,3 +7,5 @@
 .idea/modules.xml
 .idea/vcs.xml
 __pycache__/array.cpython-37.pyc
+.ipynb_checkpoints/print-checkpoint.ipynb
+__pycache__/array.cpython-38.pyc

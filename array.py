@@ -102,11 +102,6 @@ class Array:
 
         return self.__mul__(-1)
 
-    def __identity__(self):
-        """Returns the identity matrix"""
-
-        pass
-
     def assert_dims(self, other):
         return functools.reduce(mul, self.shape()) == functools.reduce(mul, other.shape())
 
