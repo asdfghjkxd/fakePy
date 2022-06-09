@@ -102,6 +102,11 @@ class Array:
 
         return self.__mul__(-1)
 
+    def __identity__(self):
+        """Returns the identity matrix"""
+
+        pass
+
     def assert_dims(self, other):
         return functools.reduce(mul, self.shape()) == functools.reduce(mul, other.shape())
 
@@ -231,7 +236,7 @@ class Array:
                                 return descended_layer
                             else:
                                 ls[:] = functools.reduce(add, ls)
-                                #TODO
+                                # TODO
                                 # ls[:] = functools.reduce(add, ls)
                                 # print('THING', ls)
 
@@ -333,6 +338,38 @@ class Array:
 
         return diags
 
+    def rotate(self, degrees: int = 90):
+        if degrees % 90 != 0:
+            raise ValueError('Degrees must be a multiple of 90')
+        else:
+            rots = (degrees % 90) + 1
+            copied = deepcopy(self.mat)
+
+            for i in range(rots):
+                copied = [list(x)[::-1] for x in zip(*copied)]
+
+            self.mat = copied
+
+    def spiral(self):
+        new_mat = []
+        copied = deepcopy(self.mat)
+
+        while copied:
+            new_mat.extend(copied.pop(0))
+
+            for i in range(0, len(copied) - 1):
+                if copied[i]:
+                    new_mat.append(copied[i].pop())
+
+            if copied:
+                new_mat.extend(copied.pop()[::-1])
+
+            for i in range(len(copied) - 1, -1, -1):
+                if copied[i]:
+                    new_mat.append(copied[i].pop(0))
+
+        return new_mat
+
     def clear(self, inplace: bool = False):
         """Cleans out the matrix and fill with 0s"""
 
@@ -340,6 +377,12 @@ class Array:
             self.mat = self.__mul__(other=0)
         else:
             return self.__mul__(other=0)
+
+    def display(self):
+        """Prints out the representation, row by row, with respect to the first outermost dimension"""
+
+        for row in self.mat:
+            print(row)
 
 
 if __name__ == '__main__':
@@ -374,7 +417,7 @@ if __name__ == '__main__':
     print(mat4.flatten(inplace=True))
     print(mat4)
 
-    mat0 = Array(init=[[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+    mat0 = Array(init=[[1, 2, 3, 4], [5, 1, 2, 3], [9, 5, 1, 2]])
     mat1 = Array(init=[[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
     mat2 = mat0 + mat1
     print(mat2)
@@ -394,10 +437,15 @@ if __name__ == '__main__':
     test2.clear(inplace=True)
     print(test2)
 
-    #ew = Array() is an error lol
+    # ew = Array() is an error lol
 
     newnew = Array.arange(end=10, shape=[2, 5])
     print(newnew)
 
     print(newnew * (lambda x: x ** 2))
 
+    mat3.display()
+
+    mat3.rotate(degrees=90)
+    mat3.display()
+    print(mat3.spiral())
