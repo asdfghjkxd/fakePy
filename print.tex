@@ -383,7 +383,7 @@
 \section{PE Answers}\label{pe-answers}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
+\prompt{In}{incolor}{1}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Question 3 \PYZsh{}\PYZsh{}\PYZsh{}}
@@ -489,7 +489,7 @@
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
+\prompt{In}{incolor}{2}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Question 4 \PYZsh{}\PYZsh{}\PYZsh{}}
@@ -546,7 +546,7 @@
 \section{Arrays}\label{arrays}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{4}{\boxspacing}
+\prompt{In}{incolor}{3}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k+kn}{import} \PY{n+nn}{functools}
 \PY{k+kn}{from} \PY{n+nn}{typing} \PY{k+kn}{import} \PY{o}{*}
@@ -626,10 +626,14 @@
         \PY{k}{elif} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{other}\PY{p}{,} \PY{n}{Array}\PY{p}{)}\PY{p}{:}
             \PY{n}{self\PYZus{}shape} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}
             \PY{n}{other\PYZus{}shape} \PY{o}{=} \PY{n}{other}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}
-            \PY{k}{if} \PY{n}{self\PYZus{}shape}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{!=} \PY{n}{other\PYZus{}shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:}
-                \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Both Arrays of not of compatible dimension spec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-            \PY{k}{elif} \PY{n+nb}{len}\PY{p}{(}\PY{n}{self\PYZus{}shape}\PY{p}{)} \PY{o}{==} \PY{n+nb}{len}\PY{p}{(}\PY{n}{other\PYZus{}shape}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:}
-                \PY{c+c1}{\PYZsh{} TODO ONLY WORKS FOR 2D ARRS FOR NOW IDK LOL}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{self\PYZus{}shape}\PY{p}{)} \PY{o}{==} \PY{n+nb}{len}\PY{p}{(}\PY{n}{other\PYZus{}shape}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                \PY{k}{if} \PY{n}{self\PYZus{}shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{!=} \PY{n}{other\PYZus{}shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:}
+                    \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Both Arrays of not compatible dimension spec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{k}{return} \PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{other}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{self\PYZus{}shape}\PY{p}{)} \PY{o}{==} \PY{n+nb}{len}\PY{p}{(}\PY{n}{other\PYZus{}shape}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:}
+                \PY{k}{if} \PY{n}{self\PYZus{}shape}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{!=} \PY{n}{other\PYZus{}shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:}
+                    \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Both Arrays of not of compatible dimension spec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
                 \PY{n}{self\PYZus{}mat} \PY{o}{=} \PY{n+nb+bp}{self}\PY{p}{(}\PY{p}{)}
                 \PY{n}{other\PYZus{}mat} \PY{o}{=} \PY{n}{other}\PY{p}{(}\PY{p}{)}
                 \PY{n}{zeros} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}zero\PYZus{}matrix}\PY{p}{(}\PY{n}{dims}\PY{o}{=}\PY{p}{[}\PY{n}{self\PYZus{}shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{other\PYZus{}shape}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
@@ -642,6 +646,21 @@
 
                 \PY{n}{reshaped} \PY{o}{=} \PY{n}{Array}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{zeros}\PY{p}{)}
                 \PY{k}{return} \PY{n}{reshaped}
+            \PY{k}{elif} \PY{n+nb}{len}\PY{p}{(}\PY{n}{self\PYZus{}shape}\PY{p}{)} \PY{o}{==} \PY{n+nb}{len}\PY{p}{(}\PY{n}{other\PYZus{}shape}\PY{p}{)} \PY{o+ow}{and} \PY{n+nb}{len}\PY{p}{(}\PY{n}{self\PYZus{}shape}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{2}\PY{p}{:}
+                \PY{k}{if} \PY{o+ow}{not} \PY{n}{self\PYZus{}shape} \PY{o}{==} \PY{n}{other\PYZus{}shape}\PY{p}{:}
+                    \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{For higher dimensional arrays, both arrays must have the same shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+                \PY{n}{self\PYZus{}squeezed} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+                \PY{n}{other\PYZus{}squeezed} \PY{o}{=} \PY{n}{other}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+
+                \PY{n}{flat} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{self\PYZus{}squeezed}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{flat}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{Array}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{self\PYZus{}squeezed}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{n}{Array}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{other\PYZus{}squeezed}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+
+                \PY{n}{new\PYZus{}mat} \PY{o}{=} \PY{n}{Array}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{flat}\PY{p}{)}
+                \PY{n}{new\PYZus{}mat}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{dims}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                \PY{k}{return} \PY{n}{new\PYZus{}mat}
             \PY{k}{else}\PY{p}{:}
                 \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Array multiplication can only be done on 2D arrays}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
         \PY{k}{else}\PY{p}{:}
@@ -651,6 +670,9 @@
         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Using inner func for negation\PYZdq{}\PYZdq{}\PYZdq{}}
 
         \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}mul\PYZus{}\PYZus{}}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+
+    \PY{k}{def} \PY{n+nf}{assert\PYZus{}dims}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{other}\PY{p}{)}\PY{p}{:}
+        \PY{k}{return} \PY{n}{functools}\PY{o}{.}\PY{n}{reduce}\PY{p}{(}\PY{n}{mul}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{n}{functools}\PY{o}{.}\PY{n}{reduce}\PY{p}{(}\PY{n}{mul}\PY{p}{,} \PY{n}{other}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{)}
 
     \PY{k}{def} \PY{n+nf}{\PYZus{}zero\PYZus{}matrix}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{dims}\PY{p}{:} \PY{n}{Union}\PY{p}{[}\PY{n}{List}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{,} \PY{n}{Tuple}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{:}
         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Returns an empty matrix\PYZdq{}\PYZdq{}\PYZdq{}}
@@ -681,16 +703,11 @@
                 \PY{n}{current}\PY{p}{[}\PY{n}{idx}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0} \PY{k}{if} \PY{n}{value} \PY{o+ow}{is} \PY{k+kc}{None} \PY{k}{else} \PY{n}{value}
         \PY{k}{except} \PY{p}{(}\PY{n+ne}{IndexError}\PY{p}{,} \PY{n+ne}{KeyError}\PY{p}{)}\PY{p}{:}
             \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}}\PY{n}{idx}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{ is invalid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-    
-    \PY{k}{def} \PY{n+nf}{assert\PYZus{}dims}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{other}\PY{p}{)}\PY{p}{:}
-        \PY{k}{return} \PY{n}{functools}\PY{o}{.}\PY{n}{reduce}\PY{p}{(}\PY{n}{mul}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{n}{functools}\PY{o}{.}\PY{n}{reduce}\PY{p}{(}\PY{n}{mul}\PY{p}{,} \PY{n}{other}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{)}
 
     \PY{n+nd}{@classmethod}
-    \PY{k}{def} \PY{n+nf}{arange}\PY{p}{(}\PY{n+nb+bp}{cls}\PY{p}{,} \PY{n}{start}\PY{p}{:} \PY{n}{Union}\PY{p}{[}\PY{n+nb}{int}\PY{p}{,} \PY{n+nb}{float}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{end}\PY{p}{:} \PY{n}{Union}\PY{p}{[}\PY{n+nb}{float}\PY{p}{,} \PY{n+nb}{int}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} 
-               \PY{n}{step}\PY{p}{:} \PY{n}{Optional}\PY{p}{[}\PY{n}{Union}\PY{p}{[}\PY{n+nb}{int}\PY{p}{,} \PY{n+nb}{float}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,}
+    \PY{k}{def} \PY{n+nf}{arange}\PY{p}{(}\PY{n+nb+bp}{cls}\PY{p}{,} \PY{n}{start}\PY{p}{:} \PY{n}{Union}\PY{p}{[}\PY{n+nb}{int}\PY{p}{,} \PY{n+nb}{float}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{end}\PY{p}{:} \PY{n}{Union}\PY{p}{[}\PY{n+nb}{float}\PY{p}{,} \PY{n+nb}{int}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{step}\PY{p}{:} \PY{n}{Optional}\PY{p}{[}\PY{n}{Union}\PY{p}{[}\PY{n+nb}{int}\PY{p}{,} \PY{n+nb}{float}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,}
                \PY{n}{shape}\PY{p}{:} \PY{n}{Optional}\PY{p}{[}\PY{n}{Union}\PY{p}{[}\PY{n}{List}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{,} \PY{n}{Tuple}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
-        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Similar to numpy\PYZsq{}s arange, generating a range of numbers according to }
-\PY{l+s+sd}{        step and then reshaping if necessary\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Similar to numpy\PYZsq{}s arange, generating a range of numbers according to step and then reshaping if necessary\PYZdq{}\PYZdq{}\PYZdq{}}
 
         \PY{k}{if} \PY{n}{step} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
             \PY{n}{step} \PY{o}{=} \PY{n+nb}{type}\PY{p}{(}\PY{n}{end}\PY{p}{)}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
@@ -726,13 +743,51 @@
         \PY{k}{else}\PY{p}{:}
             \PY{k}{return} \PY{n}{mat\PYZus{}shape}
 
-    \PY{k}{def} \PY{n+nf}{insert}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{idx}\PY{p}{:} \PY{n}{Union}\PY{p}{[}\PY{n}{List}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{,} \PY{n}{Tuple}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{value}\PY{p}{:} \PY{n}{Optional}\PY{p}{[}\PY{n}{Any}\PY{p}{]} \PY{o}{=} \PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+    \PY{k}{def} \PY{n+nf}{insert}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{idx}\PY{p}{:} \PY{n}{Union}\PY{p}{[}\PY{n}{List}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{,} \PY{n}{Tuple}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{val}\PY{p}{:} \PY{n}{Optional}\PY{p}{[}\PY{n}{Any}\PY{p}{]} \PY{o}{=} \PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Inserts the item into the array\PYZdq{}\PYZdq{}\PYZdq{}}
-        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}modify}\PY{p}{(}\PY{n}{idx}\PY{p}{,} \PY{n}{value}\PY{p}{)}
+        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}modify}\PY{p}{(}\PY{n}{idx}\PY{p}{,} \PY{n}{val}\PY{p}{)}
 
     \PY{k}{def} \PY{n+nf}{delete}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{idx}\PY{p}{:} \PY{n}{Union}\PY{p}{[}\PY{n}{List}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{,} \PY{n}{Tuple}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{:}
         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Purge an item from the array and replace it by 0\PYZdq{}\PYZdq{}\PYZdq{}}
         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}modify}\PY{p}{(}\PY{n}{idx}\PY{p}{)}
+
+    \PY{k}{def} \PY{n+nf}{find}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{idx}\PY{p}{:} \PY{n}{Union}\PY{p}{[}\PY{n}{List}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{,} \PY{n}{Tuple}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Finds the idx specified\PYZdq{}\PYZdq{}\PYZdq{}}
+
+        \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{idx}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Input idx is not valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{elif} \PY{n+nb}{any}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{idx}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Input idx not found in array}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{idx}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mat}\PY{p}{[}\PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{first} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mat}\PY{p}{[}\PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{:}
+                    \PY{n}{first} \PY{o}{=} \PY{n}{first}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+
+                \PY{k}{return} \PY{n}{first}
+
+    \PY{k}{def} \PY{n+nf}{set}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{idx}\PY{p}{:} \PY{n}{Union}\PY{p}{[}\PY{n}{List}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{,} \PY{n}{Tuple}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{val}\PY{p}{:} \PY{n}{Union}\PY{p}{[}\PY{n+nb}{float}\PY{p}{,} \PY{n+nb}{int}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Sets the idx of the matrix to the value specified\PYZdq{}\PYZdq{}\PYZdq{}}
+
+        \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{val}\PY{p}{)} \PY{o+ow}{not} \PY{o+ow}{in} \PY{p}{[}\PY{n+nb}{float}\PY{p}{,} \PY{n+nb}{int}\PY{p}{,} \PY{n+nb}{list}\PY{p}{]}\PY{p}{:}
+            \PY{k}{raise} \PY{n+ne}{TypeError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cannot insert non\PYZhy{}numerical value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{elif} \PY{n+nb}{len}\PY{p}{(}\PY{n}{idx}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Input idx is not valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{elif} \PY{n+nb}{any}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{idx}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Input idx not found in array}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{idx}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mat}\PY{p}{[}\PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{val}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{first} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mat}\PY{p}{[}\PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                    \PY{n}{first} \PY{o}{=} \PY{n}{first}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+
+                \PY{n}{first}\PY{p}{[}\PY{n}{idx}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{val}
 
     \PY{k}{def} \PY{n+nf}{reshape}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{dims}\PY{p}{:} \PY{n}{Union}\PY{p}{[}\PY{n}{List}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{,} \PY{n}{Tuple}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{p}{:} \PY{n+nb}{bool} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Important Array reshaping function\PYZdq{}\PYZdq{}\PYZdq{}}
@@ -764,7 +819,7 @@
         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Increases the dimensionality of the array by 1, adding one onto the outermost dimension\PYZdq{}\PYZdq{}\PYZdq{}}
         \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{dims}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{n}{inplace}\PY{p}{)}
 
-    \PY{k}{def} \PY{n+nf}{sum}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{axis}\PY{p}{:} \PY{n+nb}{int}\PY{p}{)}\PY{p}{:}
+    \PY{k}{def} \PY{n+nf}{contract\PYZus{}dims}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{axis}\PY{p}{:} \PY{n+nb}{int}\PY{p}{)}\PY{p}{:}
         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Sums up all elements along a specified axis, lists are concatenated and values are added up\PYZdq{}\PYZdq{}\PYZdq{}}
 
         \PY{k}{if} \PY{n}{axis} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0} \PY{o+ow}{or} \PY{n}{axis} \PY{o}{\PYZgt{}} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{:}
@@ -800,6 +855,38 @@
             \PY{n}{descended\PYZus{}layer} \PY{o}{=} \PY{l+m+mi}{0}
             \PY{n}{go\PYZus{}layer}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mat}\PY{p}{)}
 
+    \PY{k}{def} \PY{n+nf}{sum}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{axis}\PY{p}{:} \PY{n}{Optional}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]} \PY{o}{=} \PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{l+s+sd}{        Sums an array along an axis}
+
+\PY{l+s+sd}{        Algorithm:}
+\PY{l+s+sd}{        Remove the referenced axis dim from the shape of the curr matrix}
+\PY{l+s+sd}{        Recreate a new array}
+\PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+
+        \PY{n}{shape} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}
+        \PY{n}{shape\PYZus{}s} \PY{o}{=} \PY{n}{shape}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{n}{axis}\PY{p}{)}
+
+        \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{shape}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+            \PY{k}{return} \PY{n+nb}{sum}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mat}\PY{p}{)}
+
+        \PY{n}{new} \PY{o}{=} \PY{n}{Array}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{shape}\PY{p}{)}
+        \PY{n}{r\PYZus{}Index} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{shape}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+
+        \PY{k}{while} \PY{n}{r\PYZus{}Index} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+            \PY{n}{v} \PY{o}{=} \PY{l+m+mi}{0}
+
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{shape\PYZus{}s}\PY{p}{)}\PY{p}{:}
+                \PY{n}{idx} \PY{o}{=} \PY{n}{r\PYZus{}Index}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                \PY{n}{idx} \PY{o}{=} \PY{n}{idx}\PY{p}{[}\PY{p}{:}\PY{n}{axis}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{n}{idx}\PY{p}{[}\PY{n}{axis}\PY{p}{:}\PY{p}{]}
+                \PY{n}{v} \PY{o}{+}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{n}{idx}\PY{o}{=}\PY{n}{idx}\PY{p}{)}
+
+            \PY{n}{new}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{idx}\PY{o}{=}\PY{n}{r\PYZus{}Index}\PY{p}{,} \PY{n}{val}\PY{o}{=}\PY{n}{v}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{idx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{idx}\PY{p}{)}
+            \PY{n}{r\PYZus{}Index} \PY{o}{=} \PY{n}{new}\PY{o}{.}\PY{n}{get\PYZus{}next\PYZus{}idx}\PY{p}{(}\PY{n}{r\PYZus{}Index}\PY{p}{)}
+
+        \PY{k}{return} \PY{n}{new}
+
     \PY{k}{def} \PY{n+nf}{squeeze}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{axis}\PY{p}{:} \PY{n}{Optional}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,} \PY{n}{inplace}\PY{p}{:} \PY{n+nb}{bool} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Destroys all redundant dimensions in the array (all 1s)\PYZdq{}\PYZdq{}\PYZdq{}}
 
@@ -810,8 +897,8 @@
         \PY{k}{else}\PY{p}{:}
             \PY{n}{shape} \PY{o}{=} \PY{n}{shape}\PY{p}{[}\PY{p}{:}\PY{n}{axis}\PY{p}{]} \PY{o}{+} \PY{n}{shape}\PY{p}{[}\PY{n}{axis} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
             \PY{k}{if} \PY{n}{functools}\PY{o}{.}\PY{n}{reduce}\PY{p}{(}\PY{n}{mul}\PY{p}{,} \PY{n}{shape}\PY{p}{)} \PY{o}{!=} \PY{n}{functools}\PY{o}{.}\PY{n}{reduce}\PY{p}{(}\PY{n}{mul}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
-                \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Invalid Squeeze Axis: Squeezing along this axis }\PY{l+s+s1}{\PYZsq{}} 
-                                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{creates an array with the wrong flattened shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Invalid Squeeze Axis: Squeezing along this axis creates an array with the wrong }\PY{l+s+s1}{\PYZsq{}}
+                                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flattened shape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 
         \PY{k}{if} \PY{n}{inplace}\PY{p}{:}
             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{dims}\PY{o}{=}\PY{n}{shape}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
@@ -889,10 +976,10 @@
         \PY{k}{if} \PY{n}{degrees} \PY{o}{\PYZpc{}} \PY{l+m+mi}{90} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
             \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Degrees must be a multiple of 90}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
         \PY{k}{else}\PY{p}{:}
-            \PY{n}{rots} \PY{o}{=} \PY{p}{(}\PY{n}{degrees} \PY{o}{\PYZpc{}} \PY{l+m+mi}{90}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+            \PY{n}{rots} \PY{o}{=} \PY{n}{degrees} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{90}
             \PY{n}{copied} \PY{o}{=} \PY{n}{deepcopy}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mat}\PY{p}{)}
 
-            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{rots}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{rots}\PY{p}{)}\PY{p}{:}
                 \PY{n}{copied} \PY{o}{=} \PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{copied}\PY{p}{)}\PY{p}{]}
 
             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mat} \PY{o}{=} \PY{n}{copied}
@@ -917,6 +1004,25 @@
 
         \PY{k}{return} \PY{n}{new\PYZus{}mat}
 
+    \PY{k}{def} \PY{n+nf}{reverse}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{inplace}\PY{p}{:} \PY{n+nb}{bool} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Reverse a matrix fully in place\PYZdq{}\PYZdq{}\PYZdq{}}
+
+        \PY{k}{def} \PY{n+nf}{reverse\PYZus{}fully}\PY{p}{(}\PY{n}{mat}\PY{p}{:} \PY{n}{Union}\PY{p}{[}\PY{n}{List}\PY{p}{[}\PY{n}{List}\PY{p}{]}\PY{p}{,} \PY{n}{List}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{mat}\PY{p}{)} \PY{o}{==} \PY{n+nb}{list}\PY{p}{:}
+                \PY{n}{mat}\PY{o}{.}\PY{n}{reverse}\PY{p}{(}\PY{p}{)}
+
+                \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{mat}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{n}{reverse\PYZus{}fully}\PY{p}{(}\PY{n}{mat}\PY{o}{=}\PY{n}{mat}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                    \PY{n}{reverse\PYZus{}fully}\PY{p}{(}\PY{n}{mat}\PY{o}{=}\PY{n}{mat}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{return}
+        \PY{k}{if} \PY{n}{inplace}\PY{p}{:}
+            \PY{n}{reverse\PYZus{}fully}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mat}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n}{copied} \PY{o}{=} \PY{n}{deepcopy}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mat}\PY{p}{)}
+            \PY{n}{reverse\PYZus{}fully}\PY{p}{(}\PY{n}{copied}\PY{p}{)}
+            \PY{k}{return} \PY{n}{Array}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{copied}\PY{p}{)}
+
     \PY{k}{def} \PY{n+nf}{clear}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{inplace}\PY{p}{:} \PY{n+nb}{bool} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
         \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Cleans out the matrix and fill with 0s\PYZdq{}\PYZdq{}\PYZdq{}}
 
@@ -930,11 +1036,84 @@
 
         \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mat}\PY{p}{:}
             \PY{n+nb}{print}\PY{p}{(}\PY{n}{row}\PY{p}{)}
+
+    \PY{k}{def} \PY{n+nf}{cumsum}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{axis}\PY{p}{:} \PY{n}{Optional}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]} \PY{o}{=} \PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Cumulative sum of the array\PYZdq{}\PYZdq{}\PYZdq{}}
+
+        \PY{k}{if} \PY{n}{axis} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+            \PY{n}{curr} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{curr}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{curr}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{curr}\PY{p}{[}\PY{n}{i} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}
+            \PY{k}{return} \PY{n}{Array}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{curr}\PY{p}{)}
+        \PY{k}{elif} \PY{n}{axis} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{go\PYZus{}sum}\PY{p}{(}\PY{n}{ls}\PY{p}{:} \PY{n}{List}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{ls}\PY{p}{)} \PY{o}{==} \PY{n+nb}{list}\PY{p}{:}
+                    \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ls}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                        \PY{k}{if} \PY{n+nb}{any}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{==} \PY{n+nb}{int}\PY{p}{,} \PY{n}{ls}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                            \PY{k}{if} \PY{o+ow}{not} \PY{n+nb}{all}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{==} \PY{n+nb}{int} \PY{o+ow}{or} \PY{n+nb}{float} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{ls}\PY{p}{)}\PY{p}{:}
+                                \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cannot input non\PYZhy{}integers or non\PYZhy{}floats into Array}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                            \PY{k}{else}\PY{p}{:}
+                                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ls}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                                    \PY{n}{ls}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{ls}\PY{p}{[}\PY{n}{i} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}
+                        \PY{k}{else}\PY{p}{:}
+                            \PY{n}{go\PYZus{}sum}\PY{p}{(}\PY{n}{ls}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                            \PY{n}{go\PYZus{}sum}\PY{p}{(}\PY{n}{ls}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{k}{return}
+
+            \PY{n}{copied} \PY{o}{=} \PY{n}{deepcopy}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mat}\PY{p}{)}
+            \PY{n}{go\PYZus{}sum}\PY{p}{(}\PY{n}{copied}\PY{p}{)}
+            \PY{k}{return} \PY{n}{Array}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{copied}\PY{p}{)}
+        \PY{k}{elif} \PY{n}{axis} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} transpose}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+            \PY{n}{curr} \PY{o}{=} \PY{n}{deepcopy}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mat}\PY{p}{)}
+
+            \PY{c+c1}{\PYZsh{} tranpose back to avoid errors}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+
+            \PY{n}{new} \PY{o}{=} \PY{n}{Array}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{curr}\PY{p}{)}
+            \PY{n}{new} \PY{o}{=} \PY{n}{new}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{new}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}
+            \PY{k}{return} \PY{n}{new}
+        \PY{k}{else}\PY{p}{:}
+            \PY{k}{raise} \PY{n+ne}{NotImplementedError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not implemented yet lol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+    \PY{k}{def} \PY{n+nf}{get\PYZus{}next\PYZus{}idx}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{idx}\PY{p}{:} \PY{n}{Union}\PY{p}{[}\PY{n}{List}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{,} \PY{n}{Tuple}\PY{p}{[}\PY{n+nb}{int}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Returns the next sequential id in the matrix\PYZdq{}\PYZdq{}\PYZdq{}}
+
+        \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{idx}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Invalid idx spec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{elif} \PY{n+nb}{any}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{idx}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Invalid idx, not found in matrix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n}{curr\PYZus{}shape} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}
+            \PY{n}{idx}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+            \PY{n}{fixed} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+
+            \PY{k}{while} \PY{n}{idx} \PY{o+ow}{or} \PY{n}{curr\PYZus{}shape}\PY{p}{:}
+                \PY{n}{last} \PY{o}{=} \PY{n}{idx}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{k}{if} \PY{n}{last} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{curr\PYZus{}shape}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                    \PY{n}{fixed}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+
+                    \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{idx}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                        \PY{n}{idx}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{fixed}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{last}\PY{p}{)}
+
+                \PY{n}{idx} \PY{o}{=} \PY{n}{idx}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{curr\PYZus{}shape} \PY{o}{=} \PY{n}{curr\PYZus{}shape}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+
+            \PY{k}{if} \PY{n+nb}{all}\PY{p}{(}\PY{n}{x} \PY{o}{==} \PY{l+m+mi}{0} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{fixed}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{k+kc}{None}
+
+            \PY{k}{return} \PY{n}{fixed}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{8}{\boxspacing}
+\prompt{In}{incolor}{4}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Tests}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}\PYZsh{}\PYZsh{} Shape \PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -965,8 +1144,8 @@
 \PY{n}{mat3}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{dims}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{n}{mat3}\PY{p}{)}
 
-\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsh{}\PYZsh{}\PYZsh{} Sum Along \PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{mat3}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsh{}\PYZsh{}\PYZsh{} Contract Dims \PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{mat3}\PY{o}{.}\PY{n}{contract\PYZus{}dims}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{n}{mat3}\PY{p}{)}
 \PY{n}{mat3}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{dims}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{n}{mat3}\PY{p}{)}
@@ -1027,6 +1206,35 @@
 
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsh{}\PYZsh{}\PYZsh{} Spiral \PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{n}{mat3}\PY{o}{.}\PY{n}{spiral}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsh{}\PYZsh{}\PYZsh{} Find \PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{mat3}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{matx} \PY{o}{=} \PY{n}{Array}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{p}{[}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{13}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{]}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\PY{n}{maty} \PY{o}{=} \PY{n}{Array}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{p}{[}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{13}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{]}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{matx}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsh{}\PYZsh{}\PYZsh{} Get Next IDX \PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{matx}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+    \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{matx}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{matx}\PY{o}{.}\PY{n}{get\PYZus{}next\PYZus{}idx}\PY{p}{(}\PY{n}{idx}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsh{}\PYZsh{}\PYZsh{} Multiplication \PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{matx} \PY{o}{*} \PY{n}{maty}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsh{}\PYZsh{}\PYZsh{} Sum Along \PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{matx}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsh{}\PYZsh{}\PYZsh{} Reverse Matrix \PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{thing} \PY{o}{=} \PY{n}{matx}\PY{o}{.}\PY{n}{reverse}\PY{p}{(}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{thing}\PY{p}{)}
+\PY{n}{thing} \PY{o}{=} \PY{n}{thing}\PY{o}{.}\PY{n}{reverse}\PY{p}{(}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{thing}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsh{}\PYZsh{}\PYZsh{} Cumsum \PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{matz} \PY{o}{=} \PY{n}{Array}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\PY{n}{thing} \PY{o}{=} \PY{n}{matz}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{thing}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -1051,7 +1259,7 @@ Shape: [1, 3, 3]
 [1, 2, 3, 4, 5, 6, 7, 8, 9]
 [[[1, 2, 3], [4, 5, 6], [7, 8, 9]]]
 
-\#\#\# Sum Along \#\#\#
+\#\#\# Contract Dims \#\#\#
 [[1, 2, 3, 4, 5, 6, 7, 8, 9]]
 [[[1], [2], [3]], [[4], [5], [6]], [[7], [8], [9]]]
 
@@ -1104,14 +1312,35 @@ bdiags [[9], [5, 5], [1, 1, 1], [2, 2, 2], [3, 3], [4]]
 
 \#\#\# Spiral \#\#\#
 [[7], [4], [1], [2], [3], [6], [9], [8], [5]]
+
+\#\#\# Find \#\#\#
+3
+[4, 1, 4]
+
+\#\#\# Get Next IDX \#\#\#
+[0, 0, 1]
+[0, 0, 2]
+[0, 0, 3]
+[1, 0, 0]
+
+\#\#\# Multiplication \#\#\#
+[[[1, 4, 9, 16]], [[25, 36, 49, 64]], [[81, 100, 121, 144]], [[169, 196, 225,
+256]]]
+
+\#\#\# Sum Along \#\#\#
+idx [3, 0, 0]
+idx [3, 0, 1]
+idx [3, 0, 2]
+idx [3, 0, 3]
+[[28, 32, 36, 40]]
+
+\#\#\# Reverse Matrix \#\#\#
+[[[16, 15, 14, 13]], [[12, 11, 10, 9]], [[8, 7, 6, 5]], [[4, 3, 2, 1]]]
+[[[1, 2, 3, 4]], [[5, 6, 7, 8]], [[9, 10, 11, 12]], [[13, 14, 15, 16]]]
+
+\#\#\# Cumsum \#\#\#
+[[1, 3, 6], [4, 9, 15]]
     \end{Verbatim}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{ }{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-
-\end{Verbatim}
-\end{tcolorbox}
 
 
     % Add a bibliography block to the postdoc

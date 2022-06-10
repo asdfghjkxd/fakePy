@@ -76,10 +76,14 @@ class Array:
         elif isinstance(other, Array):
             self_shape = self.shape()
             other_shape = other.shape()
-            if self_shape[-1] != other_shape[0]:
-                raise ValueError('Both Arrays of not of compatible dimension spec')
-            elif len(self_shape) == len(other_shape) == 2:
-                # TODO ONLY WORKS FOR 2D ARRS FOR NOW IDK LOL
+            if len(self_shape) == len(other_shape) == 1:
+                if self_shape[0] != other_shape[0]:
+                    raise ValueError('Both Arrays of not compatible dimension spec')
+                return [x[0] * x[1] for x in zip(self(), other())]
+            if len(self_shape) == len(other_shape) == 2:
+                if self_shape[-1] != other_shape[0]:
+                    raise ValueError('Both Arrays of not of compatible dimension spec')
+
                 self_mat = self()
                 other_mat = other()
                 zeros = self._zero_matrix(dims=[self_shape[0], other_shape[-1]])
@@ -92,6 +96,21 @@ class Array:
 
                 reshaped = Array(init=zeros)
                 return reshaped
+            elif len(self_shape) == len(other_shape) and len(self_shape) > 2:
+                if not self_shape == other_shape:
+                    raise ValueError('For higher dimensional arrays, both arrays must have the same shape')
+
+                self_squeezed = self.squeeze(inplace=False)
+                other_squeezed = other.squeeze(inplace=False)
+
+                flat = []
+
+                for i in range(len(self_squeezed)):
+                    flat.append(Array(init=self_squeezed[i]) * Array(init=other_squeezed[i]))
+
+                new_mat = Array(init=flat)
+                new_mat.reshape(dims=self.shape(), inplace=True)
+                return new_mat
             else:
                 raise ValueError('Array multiplication can only be done on 2D arrays')
         else:
@@ -174,13 +193,51 @@ class Array:
         else:
             return mat_shape
 
-    def insert(self, idx: Union[List[int], Tuple[int]], value: Optional[Any] = None):
+    def insert(self, idx: Union[List[int], Tuple[int]], val: Optional[Any] = None):
         """Inserts the item into the array"""
-        self._modify(idx, value)
+        self._modify(idx, val)
 
     def delete(self, idx: Union[List[int], Tuple[int]]):
         """Purge an item from the array and replace it by 0"""
         self._modify(idx)
+
+    def find(self, idx: Union[List[int], Tuple[int]]):
+        """Finds the idx specified"""
+
+        if len(idx) != len(self.shape()):
+            raise ValueError('Input idx is not valid')
+        elif any(x[0] > (x[1] - 1) for x in zip(idx, self.shape())):
+            raise ValueError('Input idx not found in array')
+        else:
+            if len(idx) == 0:
+                return self.mat[idx[0]]
+            else:
+                first = self.mat[idx[0]]
+
+                for i in idx[1:]:
+                    first = first[i]
+
+                return first
+
+    def set(self, idx: Union[List[int], Tuple[int]], val: Union[float, int]):
+        """Sets the idx of the matrix to the value specified"""
+
+        if type(val) not in [float, int, list]:
+            raise TypeError('Cannot insert non-numerical value')
+        elif len(idx) != len(self.shape()):
+            raise ValueError('Input idx is not valid')
+        elif any(x[0] > (x[1] - 1) for x in zip(idx, self.shape())):
+            raise ValueError('Input idx not found in array')
+        else:
+            if len(idx) == 0:
+                self.mat[idx[0]] = val
+            else:
+                first = self.mat[idx[0]]
+
+                for i in idx[1:-1]:
+                    first = first[i]
+
+                first[idx[-1]] = val
 
     def reshape(self, dims: Union[List[int], Tuple[int]], inplace: bool = False):
         """Important Array reshaping function"""
@@ -212,7 +269,7 @@ class Array:
         """Increases the dimensionality of the array by 1, adding one onto the outermost dimension"""
         return self.reshape(dims=[1] + self.shape(), inplace=inplace)
 
-    def sum(self, axis: int):
+    def contract_dims(self, axis: int):
         """Sums up all elements along a specified axis, lists are concatenated and values are added up"""
 
         if axis < 0 or axis > len(self.shape()) - 1:
@@ -247,6 +304,38 @@ class Array:
 
             descended_layer = 0
             go_layer(self.mat)
+
+    def sum(self, axis: Optional[int] = None):
+        """
+        Sums an array along an axis
+
+        Algorithm:
+        Remove the referenced axis dim from the shape of the curr matrix
+        Recreate a new array
+        """
+
+        shape = self.shape()
+        shape_s = shape.pop(axis)
+
+        if len(shape) == 0:
+            return sum(self.mat)
+
+        new = Array(shape=shape)
+        r_Index = [0 for _ in range(len(shape))]
+
+        while r_Index is not None:
+            v = 0
+
+            for i in range(shape_s):
+                idx = r_Index.copy()
+                idx = idx[:axis] + [i] + idx[axis:]
+                v += self.find(idx=idx)
+
+            new.set(idx=r_Index, val=v)
+            print('idx', idx)
+            r_Index = new.get_next_idx(r_Index)
+
+        return new
 
     def squeeze(self, axis: Optional[int] = None, inplace: bool = False):
         """Destroys all redundant dimensions in the array (all 1s)"""
@@ -337,10 +426,10 @@ class Array:
         if degrees % 90 != 0:
             raise ValueError('Degrees must be a multiple of 90')
         else:
-            rots = (degrees % 90) + 1
+            rots = degrees // 90
             copied = deepcopy(self.mat)
 
-            for i in range(rots):
+            for _ in range(rots):
                 copied = [list(x)[::-1] for x in zip(*copied)]
 
             self.mat = copied
@@ -365,6 +454,25 @@ class Array:
 
         return new_mat
 
+    def reverse(self, inplace: bool = False):
+        """Reverse a matrix fully in place"""
+
+        def reverse_fully(mat: Union[List[List], List[int]]):
+            if type(mat) == list:
+                mat.reverse()
+
+                if len(mat) > 0:
+                    reverse_fully(mat=mat[0])
+                    reverse_fully(mat=mat[1:])
+            else:
+                return
+        if inplace:
+            reverse_fully(self.mat)
+        else:
+            copied = deepcopy(self.mat)
+            reverse_fully(copied)
+            return Array(init=copied)
+
     def clear(self, inplace: bool = False):
         """Cleans out the matrix and fill with 0s"""
 
@@ -378,6 +486,79 @@ class Array:
 
         for row in self.mat:
             print(row)
+
+    def cumsum(self, axis: Optional[int] = None):
+        """Cumulative sum of the array"""
+
+        if axis is None:
+            curr = self.flatten(inplace=False)
+            for i in range(1, len(curr)):
+                curr[i] += curr[i - 1]
+            return Array(init=curr)
+        elif axis == 1:
+            def go_sum(ls: List):
+                if type(ls) == list:
+                    if len(ls) > 0:
+                        if any(map(lambda x: type(x) == int, ls)):
+                            if not all(type(x) == int or float for x in ls):
+                                raise ValueError('Cannot input non-integers or non-floats into Array')
+                            else:
+                                for i in range(1, len(ls)):
+                                    ls[i] += ls[i - 1]
+                        else:
+                            go_sum(ls[0])
+                            go_sum(ls[1:])
+                else:
+                    return
+
+            copied = deepcopy(self.mat)
+            go_sum(copied)
+            return Array(init=copied)
+        elif axis == 0:
+            # transpose
+            self.transpose()
+            curr = deepcopy(self.mat)
+
+            # tranpose back to avoid errors
+            self.transpose()
+
+            new = Array(init=curr)
+            new = new.cumsum(axis=1)
+            new.transpose()
+            return new
+        else:
+            raise NotImplementedError('Not implemented yet lol')
+
+    def get_next_idx(self, idx: Union[List[int], Tuple[int]]):
+        """Returns the next sequential id in the matrix"""
+
+        if len(idx) != len(self.shape()):
+            raise ValueError('Invalid idx spec')
+        elif any(x[0] > x[1] - 1 for x in zip(idx, self.shape())):
+            raise ValueError('Invalid idx, not found in matrix')
+        else:
+            curr_shape = self.shape()
+            idx[-1] += 1
+            fixed = []
+
+            while idx or curr_shape:
+                last = idx[-1]
+                if last >= curr_shape[-1]:
+                    fixed.insert(0, 0)
+
+                    if len(idx) > 1:
+                        idx[-2] += 1
+
+                else:
+                    fixed.insert(0, last)
+
+                idx = idx[:-1]
+                curr_shape = curr_shape[:-1]
+
+            if all(x == 0 for x in fixed):
+                return None
+
+            return fixed
 
 
 if __name__ == '__main__':
@@ -396,8 +577,6 @@ if __name__ == '__main__':
     mat3.flatten(inplace=True)
     print(mat3)
     mat3.reshape(dims=[1, 3, 3], inplace=True)
-    print(mat3)
-    mat3.sum(axis=1)
     print(mat3)
     mat3.reshape(dims=[3, 3, 1], inplace=True)
     print(mat3)
@@ -440,7 +619,41 @@ if __name__ == '__main__':
     print(newnew * (lambda x: x ** 2))
 
     mat3.display()
-
+    print()
     mat3.rotate(degrees=90)
     mat3.display()
+    print()
+    mat3.rotate(degrees=90)
+    mat3.display()
+    print()
+    mat3.rotate(degrees=90)
+    mat3.display()
+    print()
+    mat3.rotate(degrees=90)
+    mat3.display()
+    print()
     print(mat3.spiral())
+    print(mat3.shape())
+    print(mat3.find([2, 2, 0]))
+
+    matx = Array(init=[[[1, 2, 3, 4]], [[5, 6, 7, 8]], [[9, 10, 11, 12]], [[13, 14, 15, 16]]])
+    maty = Array(init=[[[1, 2, 3, 4]], [[5, 6, 7, 8]], [[9, 10, 11, 12]], [[13, 14, 15, 16]]])
+    print(matx.shape())
+
+    print()
+    for i in range(matx.shape()[1]):
+        for j in range(matx.shape()[2]):
+            print(matx.get_next_idx(idx=[0, i, j]))
+
+    print(matx * maty)
+
+    print(matx.sum(axis=0))
+
+    thing = matx.reverse()
+    print(thing)
+    thing = thing.reverse()
+    print(thing)
+
+    matz = Array(init=[[1, 2, 3], [4, 5, 6]])
+    thing = matz.cumsum(axis=2)
+    print(thing)
